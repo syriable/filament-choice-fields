@@ -2,6 +2,14 @@
 
 All notable changes to `filament-choice-fields` will be documented in this file.
 
+## Unreleased
+
+### Added
+
+- State-aware descriptions via `selectedDescriptions()`: show a different
+  description while an option is selected, toggled client-side with no extra
+  server round-trip.
+
 ## 1.0.0 - 2026-06-19
 
 Initial release.

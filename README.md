@@ -9,7 +9,7 @@ Filament Choice Fields adds eight rich selection fields to FilamentPHP. Four are
 single-choice fields based on `Radio`, and four are multiple-choice fields based
 on `CheckboxList`. On top of the familiar `options()` / `descriptions()` API they
 add card, stacked-card and table layouts, per-option icons and badges, rich HTML
-"extras", and a scrollable options list.
+"extras", state-aware descriptions, and a scrollable options list.
 
 ## Requirements
 
@@ -298,6 +298,29 @@ CheckboxCard::make('plan')
     ->options(Plan::class)
     ->color(Color::Rose);
 ```
+
+### Selected descriptions
+
+`selectedDescriptions()` shows a different description while an option is
+selected. Keyed by option value just like `descriptions()`, it renders the
+default text when the option is unchecked and swaps to the selected text once
+it is checked. The swap happens instantly in the browser (via a
+`group-has-checked:` CSS variant) with no extra server round-trip.
+
+```php
+RadioList::make('language')
+    ->options($languages)
+    ->descriptions([
+        'en' => 'Click to select this language',
+    ])
+    ->selectedDescriptions([
+        'en' => 'Selected as the browser language',
+    ]);
+```
+
+Each value accepts `string | Htmlable`, and the method also accepts an
+`Arrayable` or a `Closure`. An option that only defines a selected description
+shows nothing until it is selected.
 
 ### Option icons
 
