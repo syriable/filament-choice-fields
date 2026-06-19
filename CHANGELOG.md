@@ -2,6 +2,10 @@
 
 All notable changes to `filament-choice-fields` will be documented in this file.
 
+## 1.0.1 - 2026-06-19
+
+**Full Changelog**: https://github.com/syriable/filament-choice-fields/compare/1.0.0...1.0.1
+
 ## Unreleased
 
 ### Added
