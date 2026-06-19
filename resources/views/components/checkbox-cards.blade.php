@@ -4,6 +4,7 @@
     use Filament\Support\Facades\FilamentView;
 
     $descriptions = $getDescriptions();
+    $selectedDescriptions = $getSelectedDescriptions();
     $extras = $getExtras();
     $colors = \Illuminate\Support\Arr::toCssStyles([
         get_color_css_variables($getColor(), shades: [50, 100, 400, 500, 600, 700, 800]),
@@ -74,6 +75,7 @@
                 @php
                     $id = str_replace('.', '-', $statePath) . '-' . $value;
                     $description = $descriptions[$value] ?? null;
+                    $selectedDescription = $selectedDescriptions[$value] ?? null;
                     $extra = $extras[$value] ?? null;
                     $icon = $getOptionIcon($value, $label) ?? $getIcon($value);
                     $optionBadges = $getOptionBadges($value, $label);
@@ -135,9 +137,9 @@
                                     </x-filament::badge>
                                 @endforeach
                             </span>
-                            @if ($description)
+                            @if (filled($description) || filled($selectedDescription))
                                 <span
-                                    class="fi-fo-checkbox-list-option-description mt-1 block text-sm text-gray-500 dark:text-gray-400">{{ $description }}</span>
+                                    class="fi-fo-checkbox-list-option-description mt-1 block text-sm text-gray-500 dark:text-gray-400">@if (filled($selectedDescription))<span class="group-has-checked:hidden">{{ $description }}</span><span class="hidden group-has-checked:inline">{{ $selectedDescription }}</span>@else{{ $description }}@endif</span>
                             @endif
                             @if ($extra)
                                 <span

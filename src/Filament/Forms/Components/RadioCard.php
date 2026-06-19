@@ -11,6 +11,7 @@ use Filament\Support\Concerns\HasIconSize;
 use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\Concerns\HasMaxHeight;
 use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\Concerns\HasOptionBadge;
 use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\Concerns\HasOptionIcon;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\Concerns\HasSelectedDescriptions;
 
 class RadioCard extends Base
 {
@@ -20,6 +21,7 @@ class RadioCard extends Base
     use HasMaxHeight;
     use HasOptionBadge;
     use HasOptionIcon;
+    use HasSelectedDescriptions;
 
     protected string $view = 'filament-choice-fields::components.radio-cards';
 

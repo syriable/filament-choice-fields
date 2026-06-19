@@ -3,6 +3,7 @@
     use Filament\Support\Facades\FilamentView;
 
     $descriptions = $getDescriptions();
+    $selectedDescriptions = $getSelectedDescriptions();
     $extras = $getExtras();
     $hiddenInputs = $getHiddenInputs();
     $colors = \Illuminate\Support\Arr::toCssStyles([
@@ -51,6 +52,7 @@
                 @php
                     $id = str_replace('.', '-', $statePath) . '-' . str($value)->slug();
                     $description = $descriptions[$value] ?? '';
+                    $selectedDescription = $selectedDescriptions[$value] ?? null;
                     $extra = $extras[$value] ?? null;
                     $icon = $getOptionIcon($value, $label) ?? $getIcon($value);
                     $optionBadges = $getOptionBadges($value, $label);
@@ -120,7 +122,12 @@
 
                     <div
                         class="fi-fo-checkbox-list-option-description text-sm text-gray-800 dark:text-gray-100 md:text-left">
-                        {{ $description }}
+                        @if (filled($selectedDescription))
+                            <span class="group-has-checked:hidden">{{ $description }}</span>
+                            <span class="hidden group-has-checked:inline">{{ $selectedDescription }}</span>
+                        @else
+                            {{ $description }}
+                        @endif
                     </div>
 
                     <div class="text-sm text-gray-800 dark:text-gray-100 md:text-right">
