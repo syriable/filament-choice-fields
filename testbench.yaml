@@ -1,0 +1,2 @@
+providers:
+  - Syriable\Filament\Plugins\Translations\ChoiceFields\ChoiceFieldsServiceProvider
