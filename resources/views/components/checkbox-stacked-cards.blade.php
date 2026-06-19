@@ -177,7 +177,7 @@
                         </div>
                         @if ($hiddenInputs)
                             <x-filament::icon :icon="$getHiddenInputIcon()"
-                                class="invisible size-5 text-custom-600 dark:text-custom-500 group-has-checked:visible absolute top-2 right-2" />
+                                class="invisible size-5 text-custom-600 dark:text-custom-500 group-has-checked:visible absolute top-2 inset-e-2" />
                         @endif
                     </label>
                 </div>

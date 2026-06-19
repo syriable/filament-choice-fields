@@ -96,7 +96,7 @@
                                                      has-checked:relative has-checked:border-custom-200 dark:has-checked:border-custom-500
                                                      has-checked:bg-custom-50 dark:has-checked:bg-custom-800/10
                                                      has-disabled:opacity-60 has-disabled:cursor-not-allowed
-                                                     md:grid md:grid-cols-3 md:items-center md:pr-6 md:pl-4',
+                                                     md:grid md:grid-cols-3 md:items-center md:pe-6 md:ps-4',
                         'not-has-disabled:cursor-pointer' => $hasCursorPointer,
                     ]) style="{{ $colors }}">
                     <div class="flex items-center gap-3 text-sm">
@@ -139,7 +139,7 @@
                     </div>
 
                     <div
-                        class="fi-fo-checkbox-list-option-description text-sm text-gray-800 dark:text-gray-100 md:text-left">
+                        class="fi-fo-checkbox-list-option-description text-sm text-gray-800 dark:text-gray-100 md:text-start">
                         @if (filled($selectedDescription))
                             <span class="group-has-checked:hidden">{{ $description }}</span>
                             <span class="hidden group-has-checked:inline">{{ $selectedDescription }}</span>
@@ -149,7 +149,7 @@
                     </div>
 
                     <div
-                        class="fi-fo-checkbox-list-option-extra text-sm text-gray-800 dark:text-gray-100 md:text-right">
+                        class="fi-fo-checkbox-list-option-extra text-sm text-gray-800 dark:text-gray-100 md:text-end">
                         {{ $extra }}
                     </div>
                 </label>

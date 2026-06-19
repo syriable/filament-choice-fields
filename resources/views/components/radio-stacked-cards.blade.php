@@ -139,7 +139,7 @@
                                         ],
                                         escape: false,
                                     )->class([
-                                        'fi-radio-input mt-0.5 shrink-0 ml-3 checked:bg-custom-500 checked:border-custom-500 hover:checked:bg-custom-600 hover:checked:border-custom-600 focus:border-custom-500 focus:ring-custom-500',
+                                        'fi-radio-input mt-0.5 shrink-0 ms-3 checked:bg-custom-500 checked:border-custom-500 hover:checked:bg-custom-600 hover:checked:border-custom-600 focus:border-custom-500 focus:ring-custom-500',
                                         'fi-valid' => !$errors->has($statePath),
                                         'fi-invalid' => $errors->has($statePath),
                                     ]) }}
@@ -147,7 +147,7 @@
                         @endif
                         @if ($hiddenInputs)
                             <x-filament::icon :icon="$getHiddenInputIcon()"
-                                class="invisible size-5 text-custom-600 dark:text-custom-500 group-has-checked:visible absolute top-2 right-2" />
+                                class="invisible size-5 text-custom-600 dark:text-custom-500 group-has-checked:visible absolute top-2 inset-e-2" />
                         @endif
                     </label>
                 </div>
