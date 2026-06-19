@@ -1,63 +1,436 @@
-# This is my package filament-choice-fields
+# Filament Choice Fields
 
 [![Latest Version on Packagist](https://img.shields.io/packagist/v/syriable/filament-choice-fields.svg?style=flat-square)](https://packagist.org/packages/syriable/filament-choice-fields)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/syriable/filament-choice-fields/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/syriable/filament-choice-fields/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/syriable/filament-choice-fields/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/syriable/filament-choice-fields/actions?query=workflow%3A"Fix+PHP+code+styling"+branch%3Amain)
+[![Tests](https://img.shields.io/github/actions/workflow/status/syriable/filament-choice-fields/tests.yml?label=tests&style=flat-square)](https://github.com/syriable/filament-choice-fields/actions/workflows/tests.yml)
+[![Code Style](https://img.shields.io/github/actions/workflow/status/syriable/filament-choice-fields/fix-code-style.yml?label=code%20style&style=flat-square)](https://github.com/syriable/filament-choice-fields/actions/workflows/fix-code-style.yml)
 [![Total Downloads](https://img.shields.io/packagist/dt/syriable/filament-choice-fields.svg?style=flat-square)](https://packagist.org/packages/syriable/filament-choice-fields)
 
+Filament Choice Fields adds eight rich selection fields to FilamentPHP. Four are
+single-choice fields based on `Radio`, and four are multiple-choice fields based
+on `CheckboxList`. On top of the familiar `options()` / `descriptions()` API they
+add card, stacked-card and table layouts, per-option icons and badges, rich HTML
+"extras", and a scrollable options list.
 
+## Requirements
 
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
+- PHP 8.1+
+- Filament 4 or 5
 
 ## Installation
 
-You can install the package via composer:
+**1.** Install the package via Composer:
 
 ```bash
 composer require syriable/filament-choice-fields
 ```
 
-> [!IMPORTANT]
-> If you have not set up a custom theme and are using Filament Panels follow the instructions in the [Filament Docs](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme) first.
-
-After setting up a custom theme add the plugin's views to your theme css file or your app's css file if using the standalone packages.
+**2.** Make sure you have a [custom Filament theme](https://filamentphp.com/docs/4.x/styling/overview#creating-a-custom-theme). Then register the package's Blade views as a Tailwind source in your theme's CSS file so the utility classes are compiled:
 
 ```css
 @source '../../../../vendor/syriable/filament-choice-fields/resources/**/*.blade.php';
 ```
 
-You can publish and run the migrations with:
+**3.** Rebuild your assets so the theme picks up the new classes:
 
 ```bash
-php artisan vendor:publish --tag="filament-choice-fields-migrations"
-php artisan migrate
+npm run build
+# or, while developing
+npm run dev
 ```
 
-You can publish the config file with:
+## Components
 
-```bash
-php artisan vendor:publish --tag="filament-choice-fields-config"
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="filament-choice-fields-views"
-```
-
-This is the contents of the published config file:
+All fields live in the `Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components`
+namespace. Import the ones you need:
 
 ```php
-return [
-];
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\CheckboxList;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\CheckboxCard;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\CheckboxStackedCard;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\CheckboxTable;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\RadioList;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\RadioCard;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\RadioStackedCard;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\RadioTable;
 ```
 
-## Usage
+| Field | Selection | Layout |
+| --- | --- | --- |
+| `CheckboxList` | multiple | Vertical list |
+| `CheckboxCard` | multiple | Cards |
+| `CheckboxStackedCard` | multiple | Stacked cards |
+| `CheckboxTable` | multiple | Responsive table |
+| `RadioList` | single | Vertical list |
+| `RadioCard` | single | Cards |
+| `RadioStackedCard` | single | Stacked cards |
+| `RadioTable` | single | Responsive table |
+
+### CheckboxList
+
+Vertical list layout with descriptions and extras for multiple selections.
 
 ```php
-$choiceFields = new Syriable\Filament\Plugins\Translations\ChoiceFields();
-echo $choiceFields->echoPhrase('Hello, Syriable\Filament\Plugins\Translations!');
+CheckboxList::make('delivery_type')
+    ->searchable()
+    ->bulkToggleable()
+    ->options([
+        'standard' => 'Standard Delivery',
+        'express' => 'Express Delivery',
+        'overnight' => 'Overnight Delivery',
+        'same_day' => 'Same Day Delivery',
+    ])
+    ->descriptions([
+        'standard' => 'Delivery within 5-7 business days',
+        'express' => 'Delivery within 2-3 business days',
+        'overnight' => 'Next day delivery available',
+        'same_day' => 'Delivery on the same day',
+    ])
+    ->extras([
+        'standard' => '$5.00 flat rate',
+        'express' => '$10.00 flat rate',
+        'overnight' => '$20.00 flat rate',
+        'same_day' => '$25.00 flat rate',
+    ]);
 ```
+
+### CheckboxCard
+
+Card-based layout with descriptions and extras for multiple selections.
+
+```php
+CheckboxCard::make('delivery_type')
+    ->searchable()
+    ->bulkToggleable()
+    ->options([
+        'standard' => 'Standard Delivery',
+        'express' => 'Express Delivery',
+        'overnight' => 'Overnight Delivery',
+    ])
+    ->descriptions([
+        'standard' => 'Delivery within 5-7 business days',
+        'express' => 'Delivery within 2-3 business days',
+        'overnight' => 'Next day delivery available',
+    ])
+    ->extras([
+        'standard' => '$5.00 flat rate',
+        'express' => '$10.00 flat rate',
+        'overnight' => '$20.00 flat rate',
+    ]);
+```
+
+### CheckboxStackedCard
+
+Stacked card layout with descriptions and extras for multiple selections.
+
+```php
+CheckboxStackedCard::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->searchable()
+    ->bulkToggleable();
+```
+
+### CheckboxTable
+
+Responsive table layout with descriptions for multiple selections.
+
+```php
+CheckboxTable::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->searchable()
+    ->bulkToggleable();
+```
+
+### RadioList
+
+Vertical list layout with descriptions.
+
+```php
+RadioList::make('delivery_type')
+    ->options(DeliveryTypeEnum::class);
+```
+
+### RadioCard
+
+Card-based layout with descriptions and extras.
+
+```php
+RadioCard::make('plan')
+    ->options([
+        'hobby' => 'Hobby',
+        'pro' => 'Pro',
+    ])
+    ->descriptions([
+        'hobby' => 'For side projects',
+        'pro' => 'For teams',
+    ])
+    ->extras([
+        'hobby' => '$9/mo',
+        'pro' => '$29/mo',
+    ]);
+```
+
+### RadioStackedCard
+
+Stacked card layout with descriptions and extras.
+
+```php
+RadioStackedCard::make('delivery_type')
+    ->options(DeliveryTypeEnum::class);
+```
+
+### RadioTable
+
+Responsive table layout with descriptions.
+
+```php
+RadioTable::make('delivery_type')
+    ->options(DeliveryTypeEnum::class);
+```
+
+## Search, bulk actions, and disabling options
+
+These behaviours are inherited unchanged from FilamentPHP's `Radio` and
+`CheckboxList` APIs.
+
+Search:
+
+```php
+CheckboxList::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->searchable()
+    ->searchPrompt('Search delivery types...')
+    ->noSearchResultsMessage('No delivery types found.');
+```
+
+Bulk select (checkbox-style fields only):
+
+```php
+CheckboxList::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->bulkToggleable();
+```
+
+Disable a single option:
+
+```php
+CheckboxList::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->disableOptionWhen(fn (string $value): bool => $value === 'premium');
+```
+
+## Enum support
+
+Pass a backed enum class name to `options()` instead of an array. The enum can
+implement Filament's contracts to provide its label and description:
+
+- `Filament\Support\Contracts\HasLabel` — the main label
+- `Filament\Support\Contracts\HasDescription` — the subtitle
+
+```php
+<?php
+
+declare(strict_types=1);
+
+namespace App\Enums;
+
+use Filament\Support\Contracts\HasDescription;
+use Filament\Support\Contracts\HasLabel;
+
+enum DeliveryTypeEnum: string implements HasDescription, HasLabel
+{
+    case Standard = 'standard';
+    case Express = 'express';
+    case Overnight = 'overnight';
+    case SameDay = 'same_day';
+
+    public function getLabel(): string
+    {
+        return match ($this) {
+            self::Standard => __('Standard Delivery'),
+            self::Express => __('Express Delivery'),
+            self::Overnight => __('Overnight Delivery'),
+            self::SameDay => __('Same Day Delivery'),
+        };
+    }
+
+    public function getDescription(): string
+    {
+        return match ($this) {
+            self::Standard => __('Delivery within 5-7 business days'),
+            self::Express => __('Delivery within 2-3 business days'),
+            self::Overnight => __('Next day delivery available'),
+            self::SameDay => __('Delivery on the same day'),
+        };
+    }
+}
+```
+
+Use it in a schema:
+
+```php
+use App\Enums\DeliveryTypeEnum;
+use Filament\Schemas\Schema;
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\RadioStackedCard;
+
+public static function configure(Schema $schema): Schema
+{
+    return $schema
+        ->columns(1)
+        ->components([
+            RadioStackedCard::make('delivery_type')
+                ->options(DeliveryTypeEnum::class),
+        ]);
+}
+```
+
+To show extras for an enum, pass an `extras([...])` array keyed by the enum
+value. If a case implements `getColor()`, supported layouts tint that option
+(the same behaviour as core FilamentPHP enums).
+
+## Customization
+
+### Field color
+
+```php
+use Filament\Support\Colors\Color;
+
+CheckboxCard::make('plan')
+    ->options(Plan::class)
+    ->color(Color::Rose);
+```
+
+### Option icons
+
+Add an icon next to each option's label, keyed by the option value. Use
+`iconPosition()` to place the icon before (default) or after the label.
+
+```php
+use Filament\Support\Enums\IconPosition;
+
+CheckboxList::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->icons([
+        'standard' => 'heroicon-o-sparkles',
+        'express' => 'heroicon-o-bolt',
+        'overnight' => 'heroicon-o-moon',
+        'same_day' => 'heroicon-o-clock',
+    ])
+    ->iconPosition(IconPosition::After);
+```
+
+### Dynamic option icons
+
+When the icon depends on the option value, use `optionHasIcon()` with a closure
+instead of building an `icons()` array. It receives the option `$value` (and
+`$label`) and returns an icon name, enum, or `null`. It takes precedence over
+`icons()` and still respects `iconPosition()`.
+
+```php
+CheckboxList::make('language')
+    ->options($languages)
+    ->optionHasIcon(fn (string $value): string => "flag-language-{$value}");
+```
+
+### Option badges
+
+`optionHasBadge()` renders one or more badges next to an option's label. Return
+a single value, or an array to show multiple badges. Each value may be a string,
+`Htmlable`, or `Closure`; `null`/blank values are skipped. The closure receives
+the option `$value` (and `$label`).
+
+```php
+CheckboxList::make('language')
+    ->options($languages)
+    ->optionHasBadge(fn (string $value): string => $value);
+```
+
+Use string keys to render multiple badges and to target them from
+`optionBadgeColor()`. Because colors are keyed by the badge **key** (not its
+rendered label), the badge text itself may be a translation or a dynamic string:
+
+```php
+CheckboxList::make('language')
+    ->options($languages)
+    ->optionHasBadge(fn (string $value): array => [
+        'code' => $value,
+        'used' => fn () => Locale::query()->where('code', $value)->exists()
+            ? __('Already added')
+            : null,
+    ])
+    ->optionBadgeColor(fn (string $value): array => [
+        'used' => 'danger',
+    ]);
+```
+
+`optionBadgeColor()` also accepts a plain string or closure that returns a single
+color applied to every badge. `optionBadgeIcon()` adds an icon to the badges.
+Unmatched badges fall back to the `gray` color.
+
+### Scrollable options (max height)
+
+`maxHeight()` constrains the height of the options list and makes only the
+options scroll — the search field and bulk-action buttons stay fixed. It accepts
+any CSS length string (or a closure).
+
+```php
+CheckboxList::make('language')
+    ->options($languages)
+    ->searchable()
+    ->maxHeight('20rem');
+```
+
+### Hide native inputs on cards
+
+```php
+CheckboxCard::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->hiddenInputs();
+```
+
+### Hidden input icon
+
+By default, the hidden input icon for card components is
+`heroicon-s-check-circle`. You can override it:
+
+```php
+RadioCard::make('delivery_type')
+    ->options(DeliveryTypeEnum::class)
+    ->hiddenInputIcon('heroicon-o-chevron-double-down')
+    ->hiddenInputs();
+```
+
+`visibleInputs()` reverses `hiddenInputs()` (shows the native control again).
+
+### Rich extras (HTML)
+
+Each `extras()` value accepts `string | Htmlable | Closure | null`. Plain strings
+are HTML-escaped, so they are safe by default. To render rich markup, pass an
+`Htmlable` (for example via `str()->toHtmlString()` or `new HtmlString(...)`);
+values may also be closures, which are resolved per option at render time.
+
+```php
+use Illuminate\Support\HtmlString;
+
+CheckboxCard::make('plan')
+    ->options([
+        'basic' => 'Basic',
+        'pro' => 'Pro',
+        'team' => 'Team',
+    ])
+    ->extras([
+        // Escaped automatically.
+        'basic' => 'Free',
+        // Rendered as raw HTML because it is Htmlable.
+        'pro' => str('<span class="font-bold text-primary-600">$29/mo</span>')->toHtmlString(),
+        // Closures are evaluated per option.
+        'team' => fn (): HtmlString => new HtmlString('<b>$99/mo</b>'),
+    ]);
+```
+
+> **Security:** only wrap trusted, developer-authored markup in `Htmlable`.
+> Rendering user- or database-supplied content as raw HTML exposes the form to
+> XSS. Escape any dynamic value with `e()` before adding it to an `Htmlable`
+> extra.
 
 ## Testing
 
@@ -71,7 +444,9 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](.github/CONTRIBUTING.md) for details.
+Contributions and pull requests are always welcome. Please run `composer lint`
+and `composer test` before opening a PR to help keep CI green. See
+[CONTRIBUTING](.github/CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
