@@ -187,6 +187,53 @@ RadioTable::make('delivery_type')
     ->options(DeliveryTypeEnum::class);
 ```
 
+## Single-option checkbox
+
+Unlike the eight fields above (which present *many* options), `SingleCheckboxCard`
+is a single boolean field — a styled wrapper around Filament's
+`Filament\Forms\Components\Checkbox`. It stores `true`/`false` and renders one
+card whose title is the field's `label()`. It reuses the same styling system as
+the list-based fields (icon, badge, color, description, extra, hidden inputs),
+but the content methods are **single values** rather than arrays keyed by option
+value.
+
+```php
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\SingleCheckboxCard;
+
+SingleCheckboxCard::make('terms')
+    ->label('Accept terms & conditions')
+    ->description('You agree to our privacy policy and terms of service')
+    ->icon('heroicon-o-shield-check');
+```
+
+The available methods mirror the list-based fields, in singular form:
+
+| Method | Description |
+| --- | --- |
+| `label(...)` | The card title (the wrapper label is hidden to avoid duplication). |
+| `description(...)` | Subtitle text. Accepts `string \| Htmlable \| Closure \| null`. |
+| `selectedDescription(...)` | Swapped in while the box is checked (client-side, via `group-has-checked:`). |
+| `extra(...)` | Trailing rich content (e.g. a price). |
+| `icon(...)` / `iconPosition(...)` | Icon next to the title, before (default) or after. |
+| `badge(...)` / `badgeColor(...)` / `badgeIcon(...)` | A badge next to the title. |
+| `color(...)` | The accent color used when checked (default `primary`). |
+| `hiddenInputs()` / `visibleInputs()` / `hiddenInputIcon(...)` | Hide the native checkbox and make the whole card clickable. |
+| `cursorPointer()` | Show a pointer cursor over the card. |
+
+```php
+SingleCheckboxCard::make('newsletter')
+    ->label('Subscribe to the newsletter')
+    ->description('Get product updates once a month')
+    ->selectedDescription('You will receive our next issue')
+    ->badge('Recommended')
+    ->badgeColor('success')
+    ->color(\Filament\Support\Colors\Color::Emerald)
+    ->hiddenInputs();
+```
+
+> Additional card styles for the single checkbox (stacked, table, …) will follow
+> the same `Single*` naming once the card variant is stable.
+
 ## Search, bulk actions, and disabling options
 
 These behaviours are inherited unchanged from FilamentPHP's `Radio` and
