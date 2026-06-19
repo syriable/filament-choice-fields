@@ -10,6 +10,10 @@ All notable changes to `filament-choice-fields` will be documented in this file.
 
 ### Added
 
+- `SingleCheckboxCard`: a single-option (boolean) checkbox rendered with the
+  choice-fields card UI. Wraps Filament's `Checkbox` and reuses the same styling
+  system (icon, badge, color, description, `selectedDescription()`, extra, hidden
+  inputs) with single-value methods. First of a planned `Single*` family.
 - State-aware descriptions via `selectedDescriptions()`: show a different
   description while an option is selected, toggled client-side with no extra
   server round-trip.
