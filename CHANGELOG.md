@@ -2,6 +2,19 @@
 
 All notable changes to `filament-choice-fields` will be documented in this file.
 
+## 1.0.2 - 2026-06-19
+
+### What's Changed
+
+* feat(forms): add SingleCheckboxCard single-option checkbox by @alkhatibsy in https://github.com/syriable/filament-choice-fields/pull/3
+* feat(forms): add SingleCheckboxList single-option checkbox by @alkhatibsy in https://github.com/syriable/filament-choice-fields/pull/4
+
+### New Contributors
+
+* @alkhatibsy made their first contribution in https://github.com/syriable/filament-choice-fields/pull/3
+
+**Full Changelog**: https://github.com/syriable/filament-choice-fields/compare/1.0.1...1.0.2
+
 ## 1.0.1 - 2026-06-19
 
 **Full Changelog**: https://github.com/syriable/filament-choice-fields/compare/1.0.0...1.0.1
