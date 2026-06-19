@@ -231,8 +231,28 @@ SingleCheckboxCard::make('newsletter')
     ->hiddenInputs();
 ```
 
-> Additional card styles for the single checkbox (stacked, table, …) will follow
-> the same `Single*` naming once the card variant is stable.
+### List style
+
+`SingleCheckboxList` is the flat list-row counterpart to `SingleCheckboxCard` —
+a compact, low-elevation row instead of an elevated card. It exposes the exact
+same single-value API, so you can switch styles by changing the class name:
+
+```php
+use Syriable\Filament\Plugins\Translations\ChoiceFields\Filament\Forms\Components\SingleCheckboxList;
+
+SingleCheckboxList::make('terms')
+    ->label('Accept terms & conditions')
+    ->description('You agree to our privacy policy and terms of service')
+    ->icon('heroicon-o-shield-check');
+```
+
+The only behavioural difference: when you hide the native control with
+`hiddenInputs()`, the list style highlights the checked row with a background
+tint rather than the card's check icon, so it does not use `hiddenInputIcon()`.
+
+> More single-option styles will follow the same `Single*` naming. Note that
+> `StackedCard` is intentionally **not** offered for single options — stacking is
+> a multi-item effect and would render identically to a plain card.
 
 ## Search, bulk actions, and disabling options
 

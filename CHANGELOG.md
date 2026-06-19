@@ -14,6 +14,9 @@ All notable changes to `filament-choice-fields` will be documented in this file.
   choice-fields card UI. Wraps Filament's `Checkbox` and reuses the same styling
   system (icon, badge, color, description, `selectedDescription()`, extra, hidden
   inputs) with single-value methods. First of a planned `Single*` family.
+- `SingleCheckboxList`: the flat list-row counterpart to `SingleCheckboxCard`,
+  sharing the same single-value styling API. Hiding the native input relies on
+  the checked background tint rather than a check icon.
 - State-aware descriptions via `selectedDescriptions()`: show a different
   description while an option is selected, toggled client-side with no extra
   server round-trip.
